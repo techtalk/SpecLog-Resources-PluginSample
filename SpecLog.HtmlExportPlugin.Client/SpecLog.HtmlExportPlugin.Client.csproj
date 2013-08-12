@@ -31,19 +31,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecLog.Application.Common">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Application.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Common">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Entities">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="HtmlExportPlugin.cs" />
+    <Compile Include="HtmlExportPluginConfigDialogView.xaml.cs">
+      <DependentUpon>HtmlExportPluginConfigDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlExportPluginConfigDialogViewModel.cs" />
+    <Compile Include="HtmlExportPluginConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="HtmlExportPluginConfigDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /i $(TargetDir)$(TargetName).* $(SolutionDir)External\SpecLog\Client\Plugins</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

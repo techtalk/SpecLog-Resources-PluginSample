@@ -1,7 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecLog.HtmlExportPlugin.Client", "SpecLog.HtmlExportPlugin.Client\SpecLog.HtmlExportPlugin.Client.csproj", "{6F164F9C-0087-4B13-8004-75943C39B82C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecLog.HtmlExportPlugin.Server", "SpecLog.HtmlExportPlugin.Server\SpecLog.HtmlExportPlugin.Server.csproj", "{482657E2-D5CD-4234-A3C0-D34E28863389}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F164F9C-0087-4B13-8004-75943C39B82C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F164F9C-0087-4B13-8004-75943C39B82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F164F9C-0087-4B13-8004-75943C39B82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F164F9C-0087-4B13-8004-75943C39B82C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482657E2-D5CD-4234-A3C0-D34E28863389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482657E2-D5CD-4234-A3C0-D34E28863389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482657E2-D5CD-4234-A3C0-D34E28863389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482657E2-D5CD-4234-A3C0-D34E28863389}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
