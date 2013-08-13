@@ -38,12 +38,33 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.Genome">
+      <HintPath>..\External\SpecLog\Server\TechTalk.Genome.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Commands">
+      <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.Commands.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Common">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Entities">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Logging">
+      <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.Server.Services">
+      <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.Server.Services.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlExportPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /i $(TargetDir)$(TargetName).* $(SolutionDir)External\SpecLog\Server\Plugins</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
