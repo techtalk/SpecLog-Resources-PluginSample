@@ -19,10 +19,18 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Enable plugin" VerticalAlignment="Center" />
             <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Output Path" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding OutputPath}" VerticalAlignment="Center" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Generation Interval" VerticalAlignment="Center" />
+            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding GenerationIntervalMinutes}" VerticalAlignment="Center" />
         </Grid>
     </DockPanel>
 </UserControl>

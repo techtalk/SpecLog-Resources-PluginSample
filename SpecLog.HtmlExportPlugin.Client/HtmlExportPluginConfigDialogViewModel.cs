@@ -14,5 +14,32 @@ namespace SpecLog.HtmlExportPlugin.Client
         {
             get { return "HTML Export Plugin Configuration"; }
         }
+
+        public string OutputPath
+        {
+            get { return configuration.OutputPath; }
+            set
+            {
+                configuration.OutputPath = Trim(value);
+                SaveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public int GenerationIntervalMinutes
+        {
+            get { return configuration.GenerationIntervalMinutes; }
+            set
+            {
+                configuration.GenerationIntervalMinutes = value;
+                SaveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public override bool CanSave()
+        {
+            return IsEnabled == false
+                || (!string.IsNullOrWhiteSpace(OutputPath)
+                && GenerationIntervalMinutes > 0);
+        }
     }
 }
