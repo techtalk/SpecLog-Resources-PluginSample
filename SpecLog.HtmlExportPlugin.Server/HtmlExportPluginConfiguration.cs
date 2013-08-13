@@ -7,15 +7,20 @@ using TechTalk.SpecLog.Common;
 
 namespace SpecLog.HtmlExportPlugin.Server
 {
+    public interface IHtmlExportPluginConfiguration : IPeriodicActivityConfiguration
+    {
+        string OutputPath { get; }
+    }
+
     [Serializable]
-    public class HtmlExportPluginConfiguration
+    public class HtmlExportPluginConfiguration : IHtmlExportPluginConfiguration
     {
         public string OutputPath { get; set; }
 
         public int GenerationIntervalMinutes { get; set; }
 
         [XmlIgnore]
-        public TimeSpan GenerationInterval
+        public TimeSpan TriggerInterval
         {
             get { return TimeSpan.FromMinutes(GenerationIntervalMinutes); }
         }

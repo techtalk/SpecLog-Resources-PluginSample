@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TechTalk.SpecLog.Commands;
@@ -14,13 +13,32 @@ namespace SpecLog.HtmlExportPlugin.Server
     {
         public const string PluginName = "SpecLog.HtmlExportPlugin";
 
+        private readonly ITimeService timeService;
+        private PeriodicActivity htmlExportActivity;
+
+        public HtmlExportPlugin(ITimeService timeService)
+        {
+            this.timeService = timeService;
+        }
+
         public override void OnStart()
         {
+            var config = GetConfiguration<HtmlExportPluginConfiguration>();
+
+            htmlExportActivity = new HtmlExportActivity(timeService, config);
+
+            htmlExportActivity.Start();
+
             Log(System.Diagnostics.TraceEventType.Information, "{0} started", PluginName);
         }
 
         public override void OnStop()
         {
+            if (htmlExportActivity != null)
+                htmlExportActivity.Stop();
+
+            htmlExportActivity = null;
+
             Log(System.Diagnostics.TraceEventType.Information, "{0} stopped", PluginName);
         }
 
