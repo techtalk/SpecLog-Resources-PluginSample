@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SpecLog\Server\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,14 +45,29 @@
     <Reference Include="TechTalk.Genome">
       <HintPath>..\External\SpecLog\Server\TechTalk.Genome.dll</HintPath>
     </Reference>
+    <Reference Include="TechTalk.SpecFlow.Parser, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecFlow.Parser.dll</HintPath>
+    </Reference>
     <Reference Include="TechTalk.SpecLog.Commands">
       <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.Commands.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecLog.Common">
       <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Common.dll</HintPath>
     </Reference>
+    <Reference Include="TechTalk.SpecLog.DataAccess, Version=1.9.28.0, Culture=neutral, PublicKeyToken=85216875c5e6ac87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="TechTalk.SpecLog.Entities">
       <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.GherkinParsing, Version=1.9.33.0, Culture=neutral, PublicKeyToken=85216875c5e6ac87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.GherkinParsing.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecLog.HtmlExport">
+      <HintPath>..\External\SpecLog\Client\TechTalk.SpecLog.HtmlExport.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecLog.Logging">
       <HintPath>..\External\SpecLog\Server\TechTalk.SpecLog.Logging.dll</HintPath>
@@ -58,13 +77,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HtmlExportActivity.cs" />
+    <Compile Include="HtmlExportPluginContainerSetup.cs" />
     <Compile Include="HtmlExportPlugin.cs" />
     <Compile Include="HtmlExportPluginConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /i $(TargetDir)$(TargetName).* $(SolutionDir)External\SpecLog\Server\Plugins</PostBuildEvent>
+    <PostBuildEvent>xcopy /y /i $(TargetDir)$(TargetName).* $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(TargetDir)TechTalk.SpecLog.HtmlExport.* $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(TargetDir)TechTalk.SpecLog.GherkinParsing.* $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(TargetDir)TechTalk.SpecFlow.Parser.* $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.Runtime.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.OpenJDK.Core.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.OpenJDK.Text.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.OpenJDK.Util.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.OpenJDK.XML.API.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\IKVM\IKVM.OpenJDK.Security.dll $(SolutionDir)External\SpecLog\Server\Plugins
+xcopy /y /i $(SolutionDir)External\SpecFlow\Gherkin.dll $(SolutionDir)External\SpecLog\Server\Plugins</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,32 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.Unity;
 using TechTalk.SpecLog.Commands;
 using TechTalk.SpecLog.Common;
+using TechTalk.SpecLog.DataAccess.Boundaries;
+using TechTalk.SpecLog.DataAccess.Repositories;
 using TechTalk.SpecLog.Entities;
+using TechTalk.SpecLog.HtmlExport;
 using TechTalk.SpecLog.Server.Services.PluginInfrastructure;
 
 namespace SpecLog.HtmlExportPlugin.Server
 {
-    [Plugin(HtmlExportPlugin.PluginName)]
+    [Plugin(HtmlExportPlugin.PluginName, ContainerSetupType = typeof(HtmlExportPluginContainerSetup))]
     public class HtmlExportPlugin : ServerPlugin
     {
         public const string PluginName = "SpecLog.HtmlExportPlugin";
 
-        private readonly ITimeService timeService;
-        private PeriodicActivity htmlExportActivity;
-
-        public HtmlExportPlugin(ITimeService timeService)
+        private readonly IHtmlExportPluginContainerSetup containerSetup;
+        public HtmlExportPlugin(IHtmlExportPluginContainerSetup containerSetup)
         {
-            this.timeService = timeService;
+            this.containerSetup = containerSetup;
         }
 
+        private IUnityContainer container;
+        private IHtmlExportActivity htmlExportActivity;
         public override void OnStart()
         {
             var config = GetConfiguration<HtmlExportPluginConfiguration>();
+            container = containerSetup.CreateContainer(config);
 
-            htmlExportActivity = new HtmlExportActivity(timeService, config);
-
+            htmlExportActivity = container.Resolve<IHtmlExportActivity>();
             htmlExportActivity.Start();
 
             Log(System.Diagnostics.TraceEventType.Information, "{0} started", PluginName);
@@ -36,8 +40,11 @@ namespace SpecLog.HtmlExportPlugin.Server
         {
             if (htmlExportActivity != null)
                 htmlExportActivity.Stop();
+            if (container != null)
+                container.Dispose();
 
             htmlExportActivity = null;
+            container = null;
 
             Log(System.Diagnostics.TraceEventType.Information, "{0} stopped", PluginName);
         }
