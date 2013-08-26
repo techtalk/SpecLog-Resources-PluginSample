@@ -75,7 +75,7 @@ Select the Debug tab on the project properties for the client project, and set i
   Debug settings of the client side project
 </p>
 
-It will start `SpecLog.exe` (the SpecLog client) when the plugin is debugged.
+It will start `SpecLog.exe` (the SpecLog client) when you press F5 to start the project.
 
 On the other hand, we will start `SpecLog.Server.exe` (the SpecLog server) for the server-side project. Apply the following settings on the `SpecLog.HtmlExportPlugin.Server` project:
 
@@ -114,7 +114,7 @@ Now it's time to create a configuration class for the client and the server side
 
 ![A configuration class for the client and the server side.](img/configuration-client-server.png)
 
-After you have the client configuration class, we can create a view model for the configuration dialog.
+Now, that we have the client configuration class, we can create a view model for the configuration dialog.
 
 ![A configuration class for the client and the server side.](img/plugin-configuration-dialog-viewmodel.png)
 
@@ -147,13 +147,13 @@ The status of the plugin then can be seen on the server plugin configuration dia
   <img src="img/plugin-starting.png" />
 </p>
 
-After we made sure that the plugin can be loaded and started without errors, we can continue to implementing the HTML export plugin.
+After we made sure that the plugin can be loaded and started without errors, we can continue by implementing the HTML generation function.
 
 ## <a name="6"></a>6. Implementing the plugin - Step 2
 
 ### <a name="6.1"></a>6.1. Finishing the configuration dialog
 
-Now we can create a user interface which is binded to the configuration view model:
+Now we can finish our user interface which is bound to the configuration view model:
 
 ![Configuration dialog view data bindings](img/client-plugin-configuration-dialog-view-viewmodel.png)
 
@@ -163,15 +163,15 @@ Since we implement a plugin which needs periodic task execution, we will need to
 
 ![HtmlExportActivity skeleton](img/htmlexportactivity.png)
 
-Now we could create and start that activity on the server side whenever the plugin starts and stop it when the plugin stops:
+Now, we could create and start that activity on the server side whenever the plugin starts, and stop it when the plugin stops:
 
 ![HtmlExportActivity skeleton](img/htmlexportactivity2.png)
 
-As you can see, to create `HtmlExportActivity`, we need a service which implements the `ITimeService` interface. Fortunately, this service is provided for us by the DI container [used in SpecLog](http://unity.codeplex.com/). The other dependency of the `HtmlExportActivity` is a configuration which implements the `IHtmlExportPluginConfiguration` - we introduced this interface to mark the server-side configuration class.
+As you can see, to create the `HtmlExportActivity`, we need a service which implements the `ITimeService` interface. Fortunately, this service (among others) is provided for us by the framework through the [DI container used in SpecLog](http://unity.codeplex.com/). The other dependency of the `HtmlExportActivity` is the configuration which implements `IHtmlExportPluginConfiguration` &ndash; an interface we introduced to mark the server-side configuration class.
 
 ### <a name="6.3"></a>6.3. Using dependency injection with Unity
 
-The method described above works fine for the first sight, but you may start to think about what would happen if the `HtmlExportActivity` class had numerous dependencies? Now we have two, the time service and the configuration, but in fact, soon we will have to introduce more: the `HtmlExportActivity` will depend on services which responsible for generating the HTML, loading the repository language, loading requirements, and so on.
+The method described above works just fine, but you may start to think about what would happen if the `HtmlExportActivity` class had numerous dependencies? Now we have two, the time service and the configuration, but in fact, soon we will have to introduce more: the `HtmlExportActivity` will depend on services responsible for generating the HTML, getting the repository language, loading the requirements, and so on.
 
 SpecLog uses [Unity](http://unity.codeplex.com/) to deal with the complexity of the dependency graphs.
 
@@ -186,7 +186,7 @@ Now we can use that container setup to resolve the registered dependencies for t
 
 ### <a name="7"></a>7. Finishing the plugin
 
-We have one more task left: implementing the core functionality of our plugin - in our case, this is the HTML export.
-We can place the code which is responsible for the HTML export to the `TriggerAction` method of the `HtmlExportActivity` class. Since SpecLog already contains a service which is capable of the HTML export, the code will be simple:
+We have one more task left: implementing the core functionality of our plugin &ndash; in our case the HTML export.
+We can place the code which is responsible for the HTML export to the `TriggerAction` method of our `HtmlExportActivity` class. Since SpecLog already contains a service which is capable of the HTML export, the code will be simple:
 
 ![Finishing HtmlExportActivity](img/finishing-htmlexportactivity.png)
